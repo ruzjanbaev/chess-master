@@ -24,15 +24,13 @@ public class Main {
                 Set nextCells = moves((Cell) c);
                 for (Object nextCell: nextCells)
                 {
-                    if (!previous_layer.contains(nextCell))
+                    Cell cc = (Cell) c;
+                    if (!previous_layer.contains(nextCell)) {
                         next_layer.add(nextCell);
-                }
-            }
-            for (Object o: current_layer)
-            {
-                Cell c = (Cell) o;
-                if (c.equals(targetCell)) {
-                    return layer_number;
+                        if (cc.equals(targetCell)) {
+                            return layer_number;
+                        }
+                    }
                 }
             }
             previous_layer = current_layer;
