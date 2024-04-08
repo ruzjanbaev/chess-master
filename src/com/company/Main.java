@@ -21,7 +21,7 @@ public class Main {
             Set next_layer = new HashSet();
             for (Object c: current_layer)
             {
-                Set nextCells = moves((Cell) c);
+                Set nextCells = moves((Cell) c, targetCell);
                 for (Object nextCell: nextCells)
                 {
                     Cell cc = (Cell) c;
@@ -40,16 +40,26 @@ public class Main {
         return layer_number;
     }
 
-    public static Set moves(Cell c) {
-       Set moves = new HashSet<>();
-       moves.add(new Cell(c.getX()-2, c.getY()+1));
-       moves.add(new Cell(c.getX()-2, c.getY()-1));
-       moves.add(new Cell(c.getX()-1, c.getY()+2));
-       moves.add(new Cell(c.getX()-1, c.getY()-2));
-       moves.add(new Cell(c.getX()+1, c.getY()+2));
-       moves.add(new Cell(c.getX()+1, c.getY()-2));
-       moves.add(new Cell(c.getX()+2, c.getY()+1));
-       moves.add(new Cell(c.getX()+2, c.getY()-1));
-       return moves;
+    public static Set moves(Cell c, Cell tc) {
+        //Уменьшим ход, в противоположную сторону
+        Set moves = new HashSet<>();
+        if (tc.getX() <= c.getX()) {
+            if (tc.getY() <= c.getY()) {
+                moves.add(new Cell(c.getX() - 2, c.getY() - 1));
+                moves.add(new Cell(c.getX() - 1, c.getY() - 2));
+            } else {
+                moves.add(new Cell(c.getX() - 2, c.getY() + 1));
+                moves.add(new Cell(c.getX() - 1, c.getY() + 2));
+            }
+        } else {
+            if (tc.getY() <= c.getY()) {
+                moves.add(new Cell(c.getX() + 2, c.getY() - 1));
+                moves.add(new Cell(c.getX() + 1, c.getY() - 2));
+            } else {
+                moves.add(new Cell(c.getX() + 2, c.getY() + 1));
+                moves.add(new Cell(c.getX() + 1, c.getY() + 2));
+            }
+        }
+        return moves;
     }
 }
